@@ -67,12 +67,7 @@ public class DamageSystem extends BaseComponentSystem implements UpdateSubscribe
 
             long gameTime = time.getGameTimeInMs();
 
-            logger.info("percorre ##################");
-
             if (gameTime > damaging.nextDamageTime) {
-
-                logger.info("do damage$$$$$$$$$$$$$$$$$");
-
                 //damage the entity
                 EntityRef lavaBlock = blockEntityProvider.getBlockEntityAt(loc.getWorldPosition());
                 entity.send(new DoDamageEvent(damaging.blockDamage, EngineDamageTypes.PHYSICAL.get(), lavaBlock));
@@ -86,8 +81,6 @@ public class DamageSystem extends BaseComponentSystem implements UpdateSubscribe
     @ReceiveEvent
     public void onEnterBlock(OnEnterBlockEvent event, EntityRef entity){
 
-        logger.info("Function call");
-
         //ignores "flying" lava
         //future rework will consider "flying" damage blocks
         if(isAtHeadLevel(event.getCharacterRelativePosition(), entity))
@@ -98,7 +91,6 @@ public class DamageSystem extends BaseComponentSystem implements UpdateSubscribe
             DamagingBlockComponent damaging = entity.getComponent(DamagingBlockComponent.class);
 
             if(damaging == null){
-                logger.info("Create new component");
                 damaging = new DamagingBlockComponent();
                 damaging.nextDamageTime = time.getGameTimeInMs();
                 entity.addComponent(damaging);
@@ -112,7 +104,6 @@ public class DamageSystem extends BaseComponentSystem implements UpdateSubscribe
             DamagingBlockComponent damagingOld = entity.getComponent(DamagingBlockComponent.class);
 
             if(damagingOld != null){
-                logger.info("Destroy component");
                 //clean up damagingComponent
                 entity.removeComponent(DamagingBlockComponent.class);
             }
