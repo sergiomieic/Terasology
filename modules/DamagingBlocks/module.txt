@@ -1,9 +1,9 @@
 {
-    "id" : "DamagingBlocks",
-    "version" : "0.1.0-SNAPSHOT",
-    "author" : "",
-    "displayName" : "DamagingBlocks",
-    "description" : "",
-    "dependencies" : [],
-    "serverSideOnly" : false
-}
+     "id" : "DamagingBlocks",
+     "version" : "0.1.1-SNAPSHOT",
+     "author" : "Sérgio Domingues <sergio.mieic@gmail.com>",
+     "displayName" : "DamagingBlocks",
+     "description" : "Allows entities to take damage from blocks.",
+     "dependencies" : [],
+     "isServerSideOnly" : false
+ }
