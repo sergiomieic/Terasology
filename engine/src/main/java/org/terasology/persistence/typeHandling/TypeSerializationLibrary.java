@@ -28,8 +28,8 @@ import org.terasology.engine.SimpleUri;
 import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.logic.behavior.asset.BehaviorTree;
 import org.terasology.math.IntegerRange;
-import org.terasology.math.Rect2f;
-import org.terasology.math.Rect2i;
+import org.terasology.math.geom.Rect2f;
+import org.terasology.math.geom.Rect2i;
 import org.terasology.math.Region3i;
 import org.terasology.math.geom.Vector2i;
 import org.terasology.math.geom.Quat4f;
@@ -93,7 +93,6 @@ import java.util.Set;
  * This library should be initialised by adding a number of base type handlers, describing how to serialize each supported type.
  * It will then produce serializers for classes (through their ClassMetadata) on request.
  *
- * @author Immortius
  */
 public class TypeSerializationLibrary {
     private static final Logger logger = LoggerFactory.getLogger(TypeSerializationLibrary.class);
@@ -128,6 +127,21 @@ public class TypeSerializationLibrary {
         add(Number.class, new NumberTypeHandler());
     }
 
+    /**
+     * Creates a copy of an existing serialization library. This copy is initialised with all type handlers that were added to the original, but does not retain any
+     * serializers or type handlers that were generated. This can be used to override specific types handlers from another type serializer.
+     *
+     * @param original The original type serialization library to copy.
+     */
+    public TypeSerializationLibrary(TypeSerializationLibrary original) {
+        this.reflectFactory = original.reflectFactory;
+        this.copyStrategies = original.copyStrategies;
+        for (Class<?> type : original.coreTypeHandlers) {
+            typeHandlers.put(type, original.typeHandlers.get(type));
+            coreTypeHandlers.add(type);
+        }
+    }
+
     public static TypeSerializationLibrary createDefaultLibrary(ReflectFactory factory,
                                                                 CopyStrategyLibrary copyStrategies) {
         TypeSerializationLibrary serializationLibrary = new TypeSerializationLibrary(factory, copyStrategies);
@@ -158,29 +172,12 @@ public class TypeSerializationLibrary {
         return serializationLibrary;
     }
 
-
-    /**
-     * Creates a copy of an existing serialization library. This copy is initialised with all type handlers that were added to the original, but does not retain any
-     * serializers or type handlers that were generated. This can be used to override specific types handlers from another type serializer.
-     *
-     * @param original The original type serialization library to copy.
-     */
-    public TypeSerializationLibrary(TypeSerializationLibrary original) {
-        this.reflectFactory = original.reflectFactory;
-        this.copyStrategies = original.copyStrategies;
-        for (Class<?> type : original.coreTypeHandlers) {
-            typeHandlers.put(type, original.typeHandlers.get(type));
-            coreTypeHandlers.add(type);
-        }
-    }
-
     /**
      * Obtains a serializer for the given type
      *
      * @param type The ClassMetadata for the type of interest
      * @return A serializer for serializing/deserializing the type
      */
-    @SuppressWarnings("unchecked")
     public Serializer getSerializerFor(ClassMetadata<?, ?> type) {
         Serializer serializer = serializerMap.get(type);
         if (serializer == null) {

@@ -18,8 +18,8 @@ package org.terasology.rendering.assets.texture.subtexture;
 import org.terasology.assets.Asset;
 import org.terasology.assets.AssetType;
 import org.terasology.assets.ResourceUrn;
-import org.terasology.math.Rect2f;
-import org.terasology.math.Rect2i;
+import org.terasology.math.geom.Rect2f;
+import org.terasology.math.geom.Rect2i;
 import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Vector2i;
 import org.terasology.rendering.assets.texture.Texture;
@@ -28,7 +28,6 @@ import org.terasology.rendering.assets.texture.TextureRegionAsset;
 import java.util.Optional;
 
 /**
- * @author Immortius
  */
 public class Subtexture extends TextureRegionAsset<SubtextureData> {
 

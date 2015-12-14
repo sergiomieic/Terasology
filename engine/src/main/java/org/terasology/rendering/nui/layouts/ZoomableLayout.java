@@ -18,7 +18,7 @@ package org.terasology.rendering.nui.layouts;
 import com.google.common.collect.Lists;
 
 import org.terasology.input.Keyboard;
-import org.terasology.math.Rect2i;
+import org.terasology.math.geom.Rect2i;
 import org.terasology.math.TeraMath;
 import org.terasology.math.geom.Vector2i;
 import org.terasology.math.geom.Vector2f;
@@ -40,7 +40,6 @@ import java.util.List;
  * A layout that allows positioning to a virtual coordinate system, which is mapped to screen coordinates using a
  * viewport.
  *
- * @author synopia
  */
 public class ZoomableLayout extends CoreLayout {
     private List<PositionalWidget> widgets = Lists.newArrayList();

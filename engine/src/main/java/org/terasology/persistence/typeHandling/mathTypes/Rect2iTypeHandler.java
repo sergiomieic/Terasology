@@ -18,7 +18,7 @@ package org.terasology.persistence.typeHandling.mathTypes;
 
 import com.google.common.collect.Maps;
 
-import org.terasology.math.Rect2i;
+import org.terasology.math.geom.Rect2i;
 import org.terasology.math.geom.Vector2i;
 import org.terasology.persistence.typeHandling.DeserializationContext;
 import org.terasology.persistence.typeHandling.PersistedData;
@@ -29,7 +29,6 @@ import org.terasology.persistence.typeHandling.SimpleTypeHandler;
 import java.util.Map;
 
 /**
- * @author Immortius
  */
 public class Rect2iTypeHandler extends SimpleTypeHandler<Rect2i> {
 

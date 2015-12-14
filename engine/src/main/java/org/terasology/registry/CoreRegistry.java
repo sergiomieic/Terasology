@@ -18,9 +18,8 @@ package org.terasology.registry;
 import org.terasology.context.Context;
 
 /**
- * Registry giving access to major singleton systems, via the interface they fulfil.
+ * Registry giving access to major singleton systems, via the interface they fulfill.
  *
- * @author Immortius
  */
 public final class CoreRegistry {
     private static Context context;
@@ -36,6 +35,9 @@ public final class CoreRegistry {
      * @param <T>
      */
     public static <T, U extends T> U put(Class<T> type, U object) {
+        if (context == null) {
+            return null;
+        }
         context.put(type, object);
         return object;
     }
@@ -58,8 +60,11 @@ public final class CoreRegistry {
      * @return The system fulfilling the given interface
      */
     public static <T> T get(Class<T> type) {
+        if (context == null) {
+            return null;
+        }
         if (type == Context.class) {
-            return context.get(type);
+            return type.cast(context);
         }
         return context.get(type);
     }
